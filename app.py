@@ -5,6 +5,7 @@ from sample import employees
 from sample import hiring
 from sample import settings
 from sample import my_profile 
+from sample import cal
 st.set_page_config(layout="wide")
 
 # -----------------------------
@@ -12,6 +13,8 @@ st.set_page_config(layout="wide")
 # -----------------------------
 if 'page' not in st.session_state:
      st.session_state.page = "Dashboard"
+if 'user' not in st.session_state:
+    st.session_state.user = None
 st.markdown("""
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 """, unsafe_allow_html=True)
@@ -95,8 +98,8 @@ nav_button("Dashboard")
 nav_button("Employees")
 nav_button("Hiring")
 nav_button("Analytics")
-nav_button("My Profile") # New button for My Profile
-
+nav_button("My Profile") 
+nav_button("Calendar")
 
 # -----------------------------
 # 📊 MAIN CONTENT
@@ -110,6 +113,7 @@ elif page == "Hiring":
     hiring.show()
 elif page == "Analytics":
     analytics.show()
-elif page == "My Profile": # New page for My Profile
+elif page == "My Profile": 
      my_profile.show()
-    
+elif page == "Calendar":
+    cal.show()

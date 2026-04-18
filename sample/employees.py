@@ -68,7 +68,7 @@ def show():
             with col2:
                 dept = st.selectbox(
                     "Department",
-                    ["All"] + sorted(df["department"].dropna().unique().tolist())
+                    ["All"] + sorted(df["department"].unique())
                 )
 
             filtered_df = df.copy()

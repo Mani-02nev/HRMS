@@ -9,3 +9,4 @@ id,name,department,role,email,phone,joining_date,salary,status
 108,Anjali Verma,HR,Recruiter,anjali@gmail.com,9876543217,2023-04-25,35000,Active
 109,karuppasamy murugesan,HR,HR ,karuppasamy.murugesan02@gmail.com,8270374293,2026-04-18,50000,Active
 110,karuppasamy murugesan,IT,Developer,karuppasamy.murugesan02@gmail.com,2461363,2026-04-18,46,Active
+111,siva,IT,Developer,s@gmail.com,,2026-04-18,22010,Inactive
