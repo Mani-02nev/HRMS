@@ -1,0 +1,11 @@
+id,name,department,role,email,phone,joining_date,salary,status
+101,Mani M,IT,Software Engineer,mani@gmail.com,8270374293,2023-01-15,450000,Active
+102,Priya Sharma,HR,HR Manager,priya@gmail.com,9876543211,2022-11-10,55000,Active
+103,Rahul Das,Finance,Accountant,rahul@gmail.com,9876543212,2023-03-05,40000,Active
+104,Meena Iyer,IT,Data Analyst,meena@gmail.com,9876543213,2023-06-20,42000,Inactive
+105,Karthik R,Sales,Sales Executive,karthik@gmail.com,9876543214,2022-09-12,38000,Active
+106,Sneha Patel,Marketing,Marketing Lead,sneha@gmail.com,9876543215,2021-12-01,60000,Active
+107,Vikram Singh,IT,Backend Developer,vikram@gmail.com,9876543216,2023-02-18,47000,Active
+108,Anjali Verma,HR,Recruiter,anjali@gmail.com,9876543217,2023-04-25,35000,Active
+109,karuppasamy murugesan,HR,HR ,karuppasamy.murugesan02@gmail.com,8270374293,2026-04-18,50000,Active
+110,karuppasamy murugesan,IT,Developer,karuppasamy.murugesan02@gmail.com,2461363,2026-04-18,46,Active
