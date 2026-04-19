@@ -6,15 +6,13 @@ from sample import hiring
 from sample import settings
 from sample import my_profile 
 from sample import cal
-st.set_page_config(layout="wide")
-
-# -----------------------------
-# 🧠 SESSION STATE (React useState)
-# -----------------------------
-if 'page' not in st.session_state:
-     st.session_state.page = "Dashboard"
+st.set_page_config(layout="wide",  page_title="HRMS Dashboard", )
+print( "corent section:", st.session_state)
+if 'page' not in st.session_state:          # set section state for page tracking
+     st.session_state.page = "Dashboard" # set default page
 if 'user' not in st.session_state:
     st.session_state.user = None
+print( "corent section:", st.session_state)
 st.markdown("""
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 """, unsafe_allow_html=True)
@@ -67,6 +65,14 @@ st.markdown("""
     font-style: satoshi;
     margin-left: 40px;
 }
+.sidebar-content {
+    padding: 0 10px;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+.stButton > button {
+    margin-left: 21px;
+}   
 
 </style>
 """, unsafe_allow_html=True)
@@ -78,7 +84,7 @@ st.markdown("""
 # -----------------------------
 # 🧾 SIDEBAR TITLE
 # -------------------------------
-st.sidebar.markdown('<div class="sidebar-title"><i class="fas fa-users"></i> HRMS</div>', unsafe_allow_html=True)
+st.sidebar.markdown('<div class="sidebar-title"><i class="fas fa-users"></i> HRMS </div>', unsafe_allow_html=True)
 
 # -----------------------------
 # 🎯 NAVIGATION FUNCTION
@@ -88,11 +94,7 @@ def nav_button(label):
         st.session_state.page = label
 
     # Apply active style
-    if st.session_state.page == label:
-        st.sidebar.markdown(
-            f'<style>button:contains("{label}") {{background: linear-gradient(90deg, #2563eb, #1d4ed8); color:white;}}</style>',
-            unsafe_allow_html=True
-        )
+    
 
 nav_button("Dashboard")
 nav_button("Employees")
@@ -117,3 +119,4 @@ elif page == "My Profile":
      my_profile.show()
 elif page == "Calendar":
     cal.show()
+    

@@ -1,2 +1,11 @@
-id,name,date,check_in,check_out,status
-101,Mani M,2026-04-18,21:42:10,,Present
+id,name,date,check_in,check_out,status,hours
+102,Priya Sharma,2026-04-19,09:00:00,17:00:00,Present,8:00:00
+103,Rahul Das,2026-04-19,09:15:00,17:15:00,Present,8:00:00
+104,Meena Iyer,2026-04-19,,,Absent,0:00:00
+105,Karthik R,2026-04-19,09:30:00,17:30:00,Present,8:00:00
+106,Sneha Patel,2026-04-19,08:45:00,16:45:00,Present,8:00:00
+107,Vikram Singh,2026-04-19,10:00:00,18:00:00,Present,8:00:00
+108,Anjali Verma,2026-04-19,09:00:00,17:00:00,Present,8:00:00
+109,karuppasamy murugesan,2026-04-19,09:00:00,17:00:00,Present,8:00:00
+110,siva,2026-04-19,,,Absent,0:00:00
+101,Mani M,2026-04-19,20:06:40,20:06:57,Present,0:00:17

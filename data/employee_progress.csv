@@ -1,0 +1,11 @@
+id,name,department,role,completed_projects,pending_projects,total_projects,performance_score,attendance_score,experience_years,promotion
+101,Mani M,IT,Software Engineer,10,0,10,100,95,4
+102,Priya Sharma,HR,HR Manager,8,2,10,85,90,5
+103,Rahul Das,Finance,Accountant,7,1,8,88,88,4
+104,Meena Iyer,IT,Data Analyst,5,3,8,70,70,2
+105,Karthik R,Sales,Sales Executive,12,0,12,80,80,6
+106,Sneha Patel,Marketing,Marketing Lead,15,0,15,92,92,8
+107,Vikram Singh,IT,Backend Developer,9,0,9,87,87,4
+108,Anjali Verma,HR,Recruiter,6,0,6,89,89,3
+109,karuppasamy murugesan,HR,HR ,2,0,2,75,75,1
+110,siva,IT,Developer,0,0,0,0,0,1

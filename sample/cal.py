@@ -1,9 +1,10 @@
 import streamlit as st
 from streamlit_calendar import calendar
+import json
+import os
 
-# -----------------------------
-# CATEGORY COLORS
-# -----------------------------
+FILE = "data/events.json"
+
 CATEGORIES = {
     "Interview": "#2563eb",
     "Leave": "#ef4444",
@@ -12,89 +13,37 @@ CATEGORIES = {
 }
 
 # -----------------------------
-# MAIN FUNCTION
+# LOAD / SAVE
+# -----------------------------
+def load_events():
+    if os.path.exists(FILE):
+        with open(FILE, "r") as f:
+            return json.load(f)
+    return []
+
+def save_events(data):
+    with open(FILE, "w") as f:
+        json.dump(data, f, indent=2)
+
+
+# -----------------------------
+# MAIN
 # -----------------------------
 def show():
 
+    # load once
     if "events" not in st.session_state:
-        st.session_state.events = []
+        st.session_state.events = load_events()
+
     tab1, tab2 = st.tabs(["Calendar", "Events"])
+
+    # =============================
+    # TAB 1 — CALENDAR
+    # =============================
     with tab1:
 
-    # -----------------------------
-    # SAFE PREMIUM CSS (SCOPED)
-    # -----------------------------
-        st.markdown("""
-    <style>
-
-    .cal-card {
-        background:#0f172a;
-        border:1px solid #1e293b;
-        border-radius:12px;
-        padding:16px;
-    }
-
-    /* FullCalendar styling */
-    .cal-card .fc {
-        --fc-border-color:#1e293b;
-        --fc-today-bg-color:rgba(37,99,235,0.1);
-        color:#cbd5e1;
-    }
-
-    .cal-card .fc-toolbar-title {
-        color:#e2e8f0;
-        font-weight:600;
-        font-size:16px;
-    }
-
-    .cal-card .fc-button {
-        background:transparent;
-        border:1px solid #334155;
-        color:#cbd5e1;
-        border-radius:6px;
-        font-size:12px;
-    }
-
-    .cal-card .fc-button:hover {
-        background:#1e293b;
-    }
-
-    .cal-card .fc-button-active {
-        background:#2563eb !important;
-        border-color:#2563eb !important;
-        color:white !important;
-    }
-
-    .cal-card .fc-daygrid-day-number {
-        color:#64748b;
-        font-size:12px;
-    }
-
-    .cal-card .fc-day-today .fc-daygrid-day-number {
-        background:#2563eb;
-        color:white;
-        border-radius:6px;
-        padding:2px 6px;
-    }
-
-    .cal-card .fc-event {
-        border-radius:6px;
-        font-size:11px;
-        padding:2px 6px;
-        border:none;
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
-
-    # -----------------------------
-    # HEADER
-    # -----------------------------
         st.title("Calendar")
 
-    # -----------------------------
-    # ADD EVENT (CLEAN FORM)
-    # -----------------------------
         with st.expander("Add Event"):
 
             title = st.text_input("Title")
@@ -104,55 +53,55 @@ def show():
             start = col1.date_input("Start Date")
             end = col2.date_input("End Date")
 
-        if st.button("Add Event"):
-            if title:
-                st.session_state.events.append({
-                    "title": title,
-                    "start": str(start),
-                    "end": str(end),
-                    "color": CATEGORIES[category]
-                })
-                st.success("Event Added")
-                st.rerun()
-            else:
-                st.warning("Enter title")
+            if st.button("Add Event"):
+                if title:
+                    new_event = {
+                        "title": title,
+                        "start": str(start),
+                        "end": str(end),
+                        "color": CATEGORIES[category]
+                    }
+
+                    st.session_state.events.append(new_event)
+                    save_events(st.session_state.events)
+
+                    st.success("Event Added")
+                    st.rerun()
+                else:
+                    st.warning("Enter title")
 
         st.divider()
 
-    # -----------------------------
-    # CALENDAR
-    # -----------------------------
-        st.markdown('<div class="cal-card">', unsafe_allow_html=True)
-
         calendar(
-        events=st.session_state.events,
-        options={
-            "initialView": "dayGridMonth",
-            "height": 650,
-            "headerToolbar": {
-                "left": "prev,next today",
-                "center": "title",
-                "right": "dayGridMonth,timeGridWeek"
+            events=st.session_state.events,
+            options={
+                "initialView": "dayGridMonth",
+                "height": 650,
+                "headerToolbar": {
+                    "left": "prev,next",
+                    "center": "title",
+                    "right": "dayGridMonth,timeGridWeek,timeGridDay"
+                }
             },
-            "dayMaxEvents": True
-        },
-        key="calendar"
-    )
+            key="calendar"
+        )
 
-        st.markdown('</div>', unsafe_allow_html=True)
+    # =============================
+    # TAB 2 — EVENTS LIST
+    # =============================
+    with tab2:
 
-    # -----------------------------
-    # EVENT LIST (SIMPLE)
-    # -----------------------------
-    with tab2:  
         if st.session_state.events:
-            st.subheader("Events")
 
             for i, ev in enumerate(st.session_state.events):
                 col1, col2 = st.columns([6,1])
 
-                col1.write(f"{ev['title']} — {ev['start']}")
+                col1.markdown(f"**{ev['title']}**  \n"
+                            f"<span style='color:{ev['color']}'>category: {list(CATEGORIES.keys())[list(CATEGORIES.values()).index(ev['color'])]}</span>  \n"
+                            f"{ev['start']} to {ev['end']}",
+                            unsafe_allow_html=True)
 
                 if col2.button("Delete", key=i):
                     st.session_state.events.pop(i)
+                    save_events(st.session_state.events)
                     st.rerun()
