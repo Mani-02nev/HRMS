@@ -31,7 +31,6 @@ def save_events(data):
 # -----------------------------
 def show():
 
-    # load once
     if "events" not in st.session_state:
         st.session_state.events = load_events()
 

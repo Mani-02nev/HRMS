@@ -245,8 +245,7 @@ def show():
             # -----------------------------
             # CHART
             # -----------------------------
-            st.bar_chart(PROG.set_index("name")["predicted_score"])
-
+           
         
         
         

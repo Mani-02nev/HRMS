@@ -1,11 +1,5 @@
 import streamlit as st
-from sample import analytics
-from sample import dashboard
-from sample import employees
-from sample import hiring
-from sample import settings
-from sample import my_profile 
-from sample import cal
+from sample import dashboard, employees, hiring, analytics, my_profile, cal
 st.set_page_config(layout="wide",  page_title="HRMS Dashboard", )
 print( "corent section:", st.session_state)
 if 'page' not in st.session_state:          # set section state for page tracking

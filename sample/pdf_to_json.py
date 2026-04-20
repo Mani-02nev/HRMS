@@ -14,9 +14,6 @@ for file in os.listdir(RESUME_FOLDER):
         reader = PdfReader(path)
         text = ""
 
-        for page in reader.pages:
-            text += page.extract_text() or ""
-
         data.append({
             "name": file,
             "text": text.lower()
