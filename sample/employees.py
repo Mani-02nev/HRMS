@@ -6,31 +6,30 @@ from sklearn.linear_model import  LinearRegression
 fd = "data/employees.csv"
 emp_prog_data="data/employee_progress.csv"
 
-# -----------------------------
-# LOAD DATA
-# -----------------------------
 @st.cache_data
 def load_data():
     try:
-        return pd.read_csv(fd)
+        df = pd.read_csv(fd)
+        df = df.rename(columns={
+            'Employee_ID': 'id',
+            'Employee_Name': 'name',
+            'Department': 'department',
+            'Position': 'role',
+            'Salary': 'salary',
+            'Joining_Date': 'joining_date'
+        })
+        return df
     except Exception:
-        return pd.DataFrame(columns=[
-            "id", "name", "department", "role", "email", "phone",
-            "joining_date", "salary", "status"
-        ])
-
-    
-
-
-def save_data(df):
-    df.to_csv(fd, index=False)
-    st.cache_data.clear()
-
-def load_progress():
-    try:
-        return pd.read_csv(emp_prog_data)
-    except Exception:
-        return pd.DataFrame()
+        try:
+            return pd.read_csv(emp_prog_data)
+        except Exception:
+            return pd.DataFrame()
+# -----------------------------
+# LOAD PROGRESS DATA
+# -----------------------------
+@st.cache_data
+def load_progress_data():
+    return pd.read_csv(emp_prog_data)
 # -----------------------------
 # MAIN FUNCTION (IMPORTANT)
 # -----------------------------
@@ -169,7 +168,7 @@ def show():
             )
     with tab2:
 
-        PROG = load_progress().copy()
+        PROG = load_progress_data().copy()
 
         if PROG.empty:
             st.warning("No progress data found")

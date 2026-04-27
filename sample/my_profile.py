@@ -14,6 +14,9 @@ def load_employees():
 def load_attendance():
     try:
         df = pd.read_csv(ATT_FILE)
+        df = df.rename(columns={
+            'employee_id': 'id'
+        })
         df["date"] = df["date"].astype(str)
         return df
     except Exception:
@@ -100,9 +103,9 @@ def show():
     with col_info:
         st.markdown(f"""
         <div class="profile-card">
-            <p class="emp-name">{emp['name']}</p>
-            <p class="emp-meta">{emp['role']} &bull; {emp['department']}</p>
-            <p class="emp-contact">📧 {emp['email']}<br>📞 {emp['phone']}</p>
+            <p class="emp-name">{emp['Employee_Name']}</p>
+            <p class="emp-meta">{emp['Position']} &bull; {emp['Department']}</p>
+            <p class="emp-contact">📧 {emp['email']}<br></p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -113,7 +116,7 @@ def show():
     today = str(datetime.now().date())
     now_time = datetime.now().strftime("%H:%M:%S")
 
-    idx, record = get_today_record(att_df, emp["id"])
+    idx, record = get_today_record(att_df, emp["Employee_ID"])
 
     checked_in  = record is not None
     checked_out = checked_in and str(record["check_out"]).strip() not in ("", "nan")
@@ -124,7 +127,7 @@ def show():
 
     if c1.button("🟢 Check In", disabled=checked_in, use_container_width=True):
         new_row = {
-            "id": emp["id"], "name": emp["name"], "date": today,
+            "id": emp["Employee_ID"], "name": emp["Employee_Name"], "date": today,
             "check_in": now_time, "check_out": "", "status": "Present", "hours": ""
         }
         att_df = pd.concat([att_df, pd.DataFrame([new_row])], ignore_index=True)
@@ -159,7 +162,7 @@ def show():
 
     # ── History ───────────────────────────────────────────────────
     st.subheader("📅 Attendance History")
-    history = att_df[att_df["id"] == emp["id"]].sort_values("date", ascending=False)
+    history = att_df[att_df["id"] == emp["Employee_ID"]].sort_values("date", ascending=False)
 
     if history.empty:
         st.info("No attendance records found.")
